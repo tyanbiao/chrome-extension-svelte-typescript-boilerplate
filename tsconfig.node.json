@@ -1,10 +1,13 @@
 // vite tsconfig
 {
     "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
         "composite": true,
-        "skipLibCheck": true,
-        "module": "ESNext",
-        "moduleResolution": "bundler"
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true
     },
-    "include": ["vite.config.ts", "src/manifest.config.ts", "package.json"]
+    "include": ["vite.config.ts", "manifest.json"]
 }
