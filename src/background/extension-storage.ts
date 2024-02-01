@@ -2,6 +2,7 @@ export class ExtensionStorage {
     private key: string
     private _store: Map<string, string>
     loaded: boolean
+    private timer: number = 0
     constructor() {
         this.key = '__extension_storage__';
         this._store = new Map();
@@ -10,7 +11,7 @@ export class ExtensionStorage {
     is_supported() {
         var supported = chrome?.storage?.local !== undefined;
         if (!supported) {
-            console.error('localStorage unsupported; falling back to cookie store');
+            console.error('chrome storage unsupported; falling back to cookie store');
         }
         return supported;
     }
@@ -42,15 +43,25 @@ export class ExtensionStorage {
         
     set(k: string, v: string) {
         this._store.set(k, v)
-        this.save().catch(console.error)
+        this.save()
     }
 
     remove(name: string) {
         this._store.delete(name)
-        this.save().catch(console.error)
+        this.save()
     }
 
-    async save() {
+    private save() {
+        if (this.timer) {
+            clearTimeout(this.timer)
+            this.timer = 0
+        }
+        this.timer = setTimeout(() => {
+            this.saveImpl().catch(console.error)
+        }, 10)
+    }
+
+    private async saveImpl() {
         const value: Record<string, string> = {}
         this._store.forEach((v, k) => {
             value[k] = v

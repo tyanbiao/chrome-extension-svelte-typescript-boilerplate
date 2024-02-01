@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+dependencies:
+  mixpanel-browser:
+    specifier: github:tyanbiao/mixpanel-js#develop
+    version: github.com/tyanbiao/mixpanel-js/bd7dea36beeefdcf3c62aca4f371d8e437364635
+
 devDependencies:
   '@crxjs/vite-plugin':
     specifier: 2.0.0-beta.18
@@ -1295,3 +1300,9 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
     dev: true
+
+  github.com/tyanbiao/mixpanel-js/bd7dea36beeefdcf3c62aca4f371d8e437364635:
+    resolution: {tarball: https://codeload.github.com/tyanbiao/mixpanel-js/tar.gz/bd7dea36beeefdcf3c62aca4f371d8e437364635}
+    name: mixpanel-browser
+    version: 2.48.1
+    dev: false

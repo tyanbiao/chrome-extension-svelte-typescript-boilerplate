@@ -8,21 +8,22 @@ const Token = '1c2572203c7851076a9e855d70e08560'
 // https://developer.chrome.com/docs/extensions/mv3/service_workers/
 const extensionStorage = new ExtensionStorage()
 
-async function initStorage() {
+async function initMixpanelStorage() {
+    console.log('start initMixpanelStorage')
     await extensionStorage.load()
     Mixpanel.loadExtensionStroage(extensionStorage)
 }
 
-initStorage().then(() => console.log('initStorage')).catch(console.error)
+initMixpanelStorage().then(() => console.log('extensionStorage initialized')).catch(console.error)
 chrome.runtime.onInstalled.addListener(async () => {
     console.log('onInstalled')
     if (!extensionStorage.loaded) {
-        await initStorage()
+        await initMixpanelStorage()
     }
     Mixpanel.init(Token, {
         debug: true,
         track_pageview: false,
-        persistence: 'localStorage',
+        persistence: 'extensionStorage',
         ignore_dnt: true,
         loaded: (v) => {
             console.log(v.get_distinct_id())
